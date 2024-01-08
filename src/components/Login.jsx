@@ -1,9 +1,10 @@
 // Import necessary components from React and React Native
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 // Functional component for the login page
-const Login = () => {
+const Login = ({navigation}) => {
   // State variables to store the entered username/email and password
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,14 +13,21 @@ const Login = () => {
   const handleLogin = () => {
     // Perform login logic here (e.g., send a request to the server)
     console.log('Logging in with:', { username, password });
+
+    navigation.navigate('AddProperty')
   };
+
+  //function to navigate to the signup page
+  const navigateToSignUp = () => {
+    navigation.navigate('SignUp');
+  }
 
   return (
     <View style={styles.container}>
       {/* Username or Email Address Input */}
       <TextInput
         style={styles.input}
-        placeholder="Username or Email Address"
+        placeholder="Email Address"
         onChangeText={(text) => setUsername(text)}
         value={username}
       />
@@ -39,7 +47,9 @@ const Login = () => {
       </TouchableOpacity>
 
       {/* Sign Up Text */}
-      <Text style={styles.signUpText}>Don't have an account yet? Sign Up</Text>
+      <TouchableOpacity onPress={navigateToSignUp}>
+          <Text style={{ color: 'blue' }}>Don't have an account yet? Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -62,7 +72,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   loginButton: {
-    backgroundColor: 'blue',
+    backgroundColor: 'black',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,

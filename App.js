@@ -1,18 +1,37 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import Entypo from '@expo/vector-icons/Entypo';
+import { View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
+import Entypo from '@expo/vector-icons/Entypo';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Login from './src/components/Login';
+import SignUp from './src/components/SignUp';
+import AddProperty from './src/components/AddProperty';
 
-// Keep the splash screen visible while we fetch resources
-SplashScreen.preventAutoHideAsync();
+const Stack = createStackNavigator();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
 
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+  
   useEffect(() => {
     async function prepare() {
       try {
+
+        // Keep the splash screen visible while we fetch resources
+        SplashScreen.preventAutoHideAsync();
+
         // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync(Entypo.font);
         // Artificially delay for two seconds to simulate a slow loading
@@ -29,27 +48,21 @@ export default function App() {
     prepare();
   }, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      // This tells the splash screen to hide immediately! If we call this after
-      // `setAppIsReady`, then we may see a blank screen while the app is
-      // loading its initial state and rendering its first pixels. So instead,
-      // we hide the splash screen once we know the root view has already
-      // performed layout.
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
   if (!appIsReady) {
     return null;
   }
 
   return (
-    <View
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-      onLayout={onLayoutRootView}>
-      <Text>SplashScreen Demo! 👋</Text>
-      <Entypo name="rocket" size={30} />
-    </View>
+    <NavigationContainer>
+      <View
+        style={{ flex: 1 }}
+        onLayout={onLayoutRootView}>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="AddProperty" component={AddProperty} />
+        </Stack.Navigator>
+      </View>
+    </NavigationContainer>
   );
 }

@@ -14,7 +14,7 @@ const Login = ({navigation}) => {
     // Perform login logic here (e.g., send a request to the server)
     console.log('Logging in with:', { username, password });
 
-    navigation.navigate('AddProperty')
+    navigation.navigate('Main')
   };
 
   //function to navigate to the signup page

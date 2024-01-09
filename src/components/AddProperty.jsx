@@ -1,33 +1,49 @@
 // AddProperty.jsx
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const AddProperty = () => {
-  const [propertyName, setPropertyName] = useState('');
-  const [propertyType, setPropertyType] = useState('');
-  const [size, setSize] = useState('');
-  const [price, setPrice] = useState('');
-  const [state, setState] = useState('');
-  const [city, setCity] = useState('');
-  const [address, setAddress] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [description, setDescription] = useState('');
+
+  const navigation = useNavigation();
+
+  const [propertyDetails, setPropertyDetails] = useState({
+    propertyName: '',
+    propertyType: '',
+    size: '',
+    price: '',
+    state: '',
+    city: '',
+    address: '',
+    contactNumber: '',
+    description: '',
+  });
+
+  const handleChange = (name, value) => {
+    setPropertyDetails({ ...propertyDetails, [name]: value });
+  };
 
   const handleAddProperty = () => {
-    // Perform logic to add property details (e.g., send request to server)
-    console.log('Adding property with details:', {
-      propertyName,
-      propertyType,
-      size,
-      price,
-      state,
-      city,
-      address,
-      contactNumber,
-      description,
+    // Implement your logic to send property details to HomeScreen
+    console.log('Property details:', propertyDetails);
+    // Assuming you have a navigation prop for navigation
+    navigation.navigate('Home', propertyDetails);
+
+    setPropertyDetails({
+      propertyName: '',
+      propertyType: '',
+      size: '',
+      price: '',
+      state: '',
+      city: '',
+      address: '',
+      contactNumber: '',
+      description: '',
     });
-    // Optionally, you can navigate the user to another screen or perform any other actions.
+
+    Alert.alert('Property Added Successfully!');
+
   };
 
   return (
@@ -38,64 +54,64 @@ const AddProperty = () => {
       <TextInput
         style={styles.input}
         placeholder="Property Name"
-        onChangeText={(text) => setPropertyName(text)}
-        value={propertyName}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, propertyName: text })}
+        value={propertyDetails.propertyName}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Property Type"
-        onChangeText={(text) => setPropertyType(text)}
-        value={propertyType}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, propertyType: text })}
+        value={propertyDetails.propertyType}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Size"
-        onChangeText={(text) => setSize(text)}
-        value={size}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, size: text })}
+        value={propertyDetails.size}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Price"
-        onChangeText={(text) => setPrice(text)}
-        value={price}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, price: text })}
+        value={propertyDetails.price}
       />
 
       <TextInput
         style={styles.input}
         placeholder="State"
-        onChangeText={(text) => setState(text)}
-        value={state}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, state: text })}
+        value={propertyDetails.state}
       />
 
       <TextInput
         style={styles.input}
         placeholder="City"
-        onChangeText={(text) => setCity(text)}
-        value={city}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, city: text })}
+        value={propertyDetails.city}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Address"
-        onChangeText={(text) => setAddress(text)}
-        value={address}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, address: text })}
+        value={propertyDetails.address}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Contact Number"
-        onChangeText={(text) => setContactNumber(text)}
-        value={contactNumber}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, contactNumber: text })}
+        value={propertyDetails.contactNumber}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Description"
-        onChangeText={(text) => setDescription(text)}
-        value={description}
+        onChangeText={(text) => setPropertyDetails({ ...propertyDetails, description: text })}
+        value={propertyDetails.description}
       />
       
       {/* Add Property Button */}

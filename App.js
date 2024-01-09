@@ -1,15 +1,27 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, Pressable } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import Entypo from '@expo/vector-icons/Entypo';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './src/components/Login';
 import SignUp from './src/components/SignUp';
 import AddProperty from './src/components/AddProperty';
+import HomeScreen from './src/components/HomeScreen';
+import SearchProperty from './src/components/SearchProperty';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const MainNavigator = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="AddProperty" component={AddProperty} />
+    <Tab.Screen name="SearchProperty" component={SearchProperty} /> 
+  </Tab.Navigator>
+);
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -60,7 +72,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="AddProperty" component={AddProperty} />
+          <Stack.Screen name="Main" component={MainNavigator} />
         </Stack.Navigator>
       </View>
     </NavigationContainer>

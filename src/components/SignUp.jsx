@@ -18,7 +18,7 @@ const SignUp = () => {
     // Perform sign-up logic here (e.g., send a request to the server)
     console.log('Signing up with:', { fullName, email, password });
 
-    navigation.navigate('AddProperty');
+    navigation.navigate('Main');
   };
 
   // Function to navigate to the sign-in page

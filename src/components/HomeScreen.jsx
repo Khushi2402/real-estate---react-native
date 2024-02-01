@@ -2,35 +2,41 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import AddProperty from './AddProperty';
 
 const HomeScreen = ({ route }) => {
-    const [properties, setProperties] = useState(null);
+    console.log('HomeScreen rendered');
+    const [properties, setProperties] = useState([]);
   
     useEffect(() => {
-      const receivedProperty = route.params;
-      setProperties([...properties, receivedProperty]);
+      const initialProperties = route.params?.payload;;
+      if (initialProperties) {
+        setProperties(prevProperties => [...properties, initialProperties]);
+      }
     }, [route.params]);
+
+    // Generating a unique key for the FlatList
+  const uniqueKey = Date.now();
 
   return (
     <View>
       <Text>Properties</Text>
-
       <FlatList
       data={properties}
       renderItem={({ item }) => (
         <View style={styles.propertyCard}>
-          <Text style={styles.propertyTitle}>{property.propertyName}</Text>
-          <Text>Property Type: {property.propertyType}</Text>
-          <Text>Size: {property.size}</Text>
-          <Text>Price: {property.price}</Text>
-          <Text>State: {property.state}</Text>
-          <Text>City: {property.city}</Text>
-          <Text>Address: {property.address}</Text>
-          <Text>Contact Number: {property.contactNumber}</Text>
-          <Text>Description: {property.description}</Text> 
+          <Text style={styles.propertyTitle}>{item.propertyName}</Text>
+          <Text>Property Type: {item.propertyType}</Text>
+          <Text>Size: {item.size}</Text>
+          <Text>Price: {item.price}</Text>
+          <Text>State: {item.state}</Text>
+          <Text>City: {item.city}</Text>
+          <Text>Address: {item.address}</Text>
+          <Text>Contact Number: {item.contactNumber}</Text>
+          <Text>Description: {item.description}</Text> 
         </View>
       )}
+      keyExtractor={(item) => item.propertyName}
+      key={uniqueKey} 
     />
     </View>
   );

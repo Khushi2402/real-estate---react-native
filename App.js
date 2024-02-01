@@ -6,8 +6,9 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Login from './src/components/Login';
-import SignUp from './src/components/SignUp';
+
+import Login from './src/components/Login/Login';
+import SignUp from './src/components/SignUp/SignUp';
 import AddProperty from './src/components/AddProperty';
 import HomeScreen from './src/components/HomeScreen';
 import SearchProperty from './src/components/SearchProperty';

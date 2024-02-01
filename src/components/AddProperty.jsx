@@ -25,10 +25,10 @@ const AddProperty = () => {
   };
 
   const handleAddProperty = () => {
-    // Implement your logic to send property details to HomeScreen
     console.log('Property details:', propertyDetails);
-    // Assuming you have a navigation prop for navigation
-    navigation.navigate('Home', propertyDetails);
+    navigation.navigate('Home', {
+      payload: propertyDetails,
+    });
 
     setPropertyDetails({
       propertyName: '',

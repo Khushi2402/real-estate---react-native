@@ -5,30 +5,32 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import AddProperty from './AddProperty';
 
 const HomeScreen = ({ route }) => {
-    const [properties, setProperties] = useState(null);
+    const [properties, setProperties] = useState([]);
   
     useEffect(() => {
-      const receivedProperty = route.params;
+      if (route.params) {
+        const receivedProperty = route.params;
       setProperties([...properties, receivedProperty]);
+      }
     }, [route.params]);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Properties</Text>
-
       <FlatList
       data={properties}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (
         <View style={styles.propertyCard}>
-          <Text style={styles.propertyTitle}>{property.propertyName}</Text>
-          <Text>Property Type: {property.propertyType}</Text>
-          <Text>Size: {property.size}</Text>
-          <Text>Price: {property.price}</Text>
-          <Text>State: {property.state}</Text>
-          <Text>City: {property.city}</Text>
-          <Text>Address: {property.address}</Text>
-          <Text>Contact Number: {property.contactNumber}</Text>
-          <Text>Description: {property.description}</Text> 
+          <Text style={styles.propertyTitle}>{item.propertyName}</Text>
+          <Text>Property Type: {item.propertyType}</Text>
+          <Text>Size: {item.size}</Text>
+          <Text>Price: {item.price}</Text>
+          <Text>State: {item.state}</Text>
+          <Text>City: {item.city}</Text>
+          <Text>Address: {item.address}</Text>
+          <Text>Contact Number: {item.contactNumber}</Text>
+          <Text>Description: {item.description}</Text> 
         </View>
       )}
     />
@@ -37,17 +39,27 @@ const HomeScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-    propertyCard: {
-        marginVertical: 10,
-        padding: 10,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 8,
-      },
-      propertyTitle: {
-        fontWeight: 'bold',
-        fontSize: 18,
-      },
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  propertyCard: {
+    marginVertical: 10,
+    padding: 10,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 8,
+  },
+  propertyTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
 });
 
 export default HomeScreen;

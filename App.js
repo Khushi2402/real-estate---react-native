@@ -1,3 +1,7 @@
+//web 838169335396-575liblkq8aid5m3gc4phvfjukprfi8o.apps.googleusercontent.com
+//android 838169335396-f4j6boor7a7057je6unm6aatem6adn20.apps.googleusercontent.com
+
+import * as React from 'react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, Pressable } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,6 +15,11 @@ import SignUp from './src/components/SignUp';
 import AddProperty from './src/components/AddProperty';
 import HomeScreen from './src/components/HomeScreen';
 import SearchProperty from './src/components/SearchProperty';
+import * as WebBrowser from "expo-web-browser";
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from "react-native-async-storage/async-storage"
+
+WebBrowser.maybeCompleteAuthSession();
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
